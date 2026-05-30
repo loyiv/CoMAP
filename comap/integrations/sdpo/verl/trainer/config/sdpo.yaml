@@ -1,0 +1,51 @@
+defaults:
+  - ppo_trainer
+  - user
+  - _self_
+
+# MAX_PROMPT_LENGTH=2048
+# MAX_RESPONSE_LENGTH=8192
+# MAX_FEEDBACK_LENGTH=8192
+# TEMPLATE_LENGTH=512  # heuristic upper bound, not enforced
+# MAX_MODEL_LEN=$((TEMPLATE_LENGTH + MAX_PROMPT_LENGTH + MAX_FEEDBACK_LENGTH + MAX_RESPONSE_LENGTH))
+max_model_len: 18944
+
+actor_rollout_ref:
+  actor:
+    ppo_mini_batch_size: 1
+    ppo_micro_batch_size_per_gpu: 1
+    policy_loss:
+      loss_mode: sdpo
+    self_distillation:
+      alpha: 0.5
+      teacher_regularization: ema
+      teacher_update_rate: 0.01
+      max_reprompt_len: 2048
+      include_environment_feedback: True
+      environment_feedback_only_without_solution: True
+      enable_auxiliary_supervision: True
+      reflect_main_loss_weight: 1.0
+      draft_distill_loss_weight: 0.25
+      expert_anchor_loss_weight: 0.5
+      transition_fallback_loss_weight: 0.1
+      is_clip: null
+    optim:
+      lr: 2e-5
+  rollout:
+    n: 1
+    calculate_log_probs: True
+
+algorithm:
+  adv_estimator: grpo # disables critic
+  norm_adv_by_std_in_grpo: False
+  rollout_correction:
+    rollout_is: token
+    rollout_is_threshold: 2.0
+
+data:
+  train_batch_size: 1
+
+trainer:
+  val_before_train: False
+  total_epochs: 3
+  logger: [console]

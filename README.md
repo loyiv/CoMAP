@@ -16,12 +16,6 @@
   <a href="https://www4.comp.polyu.edu.hk/~cswjli/">Wenjie Li</a>
 </p>
 
-<p align="center">
-  Code for <b>Co-Evolving World Models and Agent Policies for LLM Agents</b>.
-</p>
-
----
-
 ## Overview
 
 <p align="center">

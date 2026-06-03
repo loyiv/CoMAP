@@ -105,8 +105,6 @@ def main(args: argparse.Namespace):
     
     logger.info(f"Experiment config: \n{json.dumps(exp_config, indent=2)}")
 
-    if env_config["env_class"] != "AlfWorldEnv":
-        raise ValueError("This minimal COMAP release keeps only the ALFWorld evaluation path.")
 
     # initialize all the tasks
     task_config: Dict[str, Any] = exp_config["task"]

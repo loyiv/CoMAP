@@ -29,8 +29,6 @@ CoMAP co-evolves the world model and the agent policy in a closed loop. The worl
   <img src="assets/fiugre2.png" width="95%">
 </p>
 
-**Figure 2. Framework overview.**  
-At each step, the agent first drafts an action, the world model predicts its future state, and the policy performs future-aware reflection to refine the action. The resulting trajectories are used for on-policy self-distillation of the world model and policy-side evolution.
 
 ---
 
